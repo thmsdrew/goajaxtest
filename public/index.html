@@ -1,0 +1,33 @@
+<html>
+	<body>
+		<h1>Ajax Test</h1>
+		<form name="ajaxform" id="ajaxform" action="ajax" method="POST">
+			<label for="fname">First Name</label>
+			<input type="text" id="fname" name="fname" />
+			<br />
+			<label for="lname">Last Name</label>
+			<input type="text" id="lname" name="lname" />
+			<br />
+			<input type="submit" value="Submit" />
+		</form>
+		<div id="output"><p></p></div>
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#ajaxform').submit(function(e) {
+					var postData = $(this).serializeArray();
+					var formURL = $(this).attr('action');
+					$.ajax({
+						url: formURL,
+						type: "POST",
+						data: postData,
+						success: function(data, status, jqXHR) {
+							$('#output').append('<p>First Name: ' + data.fname + ', Last Name: ' + data.lname + '</p>');
+						}
+					});
+					e.preventDefault();
+				});
+			});
+		</script>
+	</body>
+</html>
